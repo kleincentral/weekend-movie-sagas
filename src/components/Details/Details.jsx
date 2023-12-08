@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Details() {
+  const dispatch = useDispatch();
+
   const ourMovie = useSelector((store) => store.selectedMovie);
+  const ourGenras = useSelector((store) => store.selectedGenra);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_GENRES", payload: ourMovie.id });
+  }, []);
+  console.log(ourGenras);
+  console.log(ourMovie.poster);
 
   return (
     <div data-testid="movieDetails">
@@ -11,7 +21,17 @@ export default function Details() {
       </Link>
       <br></br>
       <h3>{ourMovie.title}</h3>
-      <img src={ourMovie.poster} alt={ourMovie.title} />
+      <img
+        data-testid="movieDetail"
+        src={ourMovie.poster}
+        alt={ourMovie.title}
+      />
+      <h4>
+        Genras:{" "}
+        {ourGenras.map((index) => {
+          return <span>{index.name} </span>;
+        })}
+      </h4>
       <p>{ourMovie.description}</p>
     </div>
   );
