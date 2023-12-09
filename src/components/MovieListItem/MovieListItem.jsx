@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 
@@ -20,7 +19,13 @@ export default function MovieListItem({ movie }) {
 
   return (
     <div data-testid="movieItem" key={movie.id}>
-      <Grid container direction={"row"} alignItems={"center"} spacing={0}>
+      <Grid
+        container
+        direction={"row"}
+        alignItems={"center"}
+        padding={2}
+        spacing={0}
+      >
         <Link to="/details">
           <Card sx={{ maxHeight: 400, maxWidth: 200 }}>
             <CardMedia
