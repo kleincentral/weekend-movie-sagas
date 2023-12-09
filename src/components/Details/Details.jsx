@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 
 export default function Details() {
   const dispatch = useDispatch();
@@ -15,24 +21,35 @@ export default function Details() {
   console.log(ourMovie.poster);
 
   return (
-    <div data-testid="movieDetails">
+    <div data-testid="movieDetails" className="centered">
       <Link to="/">
-        <button data-testid="toList">back to movie list</button>
+        <Button data-testid="toList">back to movie list</Button>
       </Link>
-      <br></br>
-      <h3>{ourMovie.title}</h3>
-      <img
-        data-testid="movieDetail"
-        src={ourMovie.poster}
-        alt={ourMovie.title}
-      />
-      <h4>
-        Genras:{" "}
-        {ourGenras.map((index) => {
-          return <span>{index.name} </span>;
-        })}
-      </h4>
-      <p>{ourMovie.description}</p>
+      <Grid container direction={"column"} alignItems={"center"}>
+        <Card sx={{ maxWidth: 400 }}>
+          <CardMedia
+            sx={{ height: 600 }}
+            image={ourMovie.poster}
+            title={ourMovie.title}
+            data-testid="movieDetail"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {ourMovie.title}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Genras:{" "}
+              {ourGenras &&
+                ourGenras.map((index) => {
+                  return <span>{index.name} </span>;
+                })}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              <p>{ourMovie.description}</p>
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
     </div>
   );
 }
